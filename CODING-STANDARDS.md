@@ -408,7 +408,6 @@ public class Foo {
 Every class and nontrivial public method you write must contain a Javadoc comment with at least one sentence describing what the class or method does. This sentence should start with a third person descriptive verb.
 ```java
 /** Returns the correctly rounded positive square root of a double value. */
-
 static double sqrt(double a) {
     ...
 }
@@ -416,7 +415,7 @@ static double sqrt(double a) {
 
 or 
 
-```
+```java
 /**
  * Constructs a new String by converting the specified array of
  * bytes using the platform's default character encoding.
@@ -430,7 +429,5 @@ public String(byte[] bytes) {
 Use in-line commenting to help the next developer who might be editing your code, even if it seems obvious now. Inline comments should appear on the line above the code your are commenting.
 Comment XML View elements using ```<!-- Comment -->```.
 
-## Version control
+### Version control
 No commented out code must be committed unless you have a very good reason that is clearly described in a comment by the code you are ommitting.
-
-For further details on branching strategies used at ustwo please see: [https://www.ustwo.com/blog/branching-strategies-with-git/](https://www.ustwo.com/blog/branching-strategies-with-git/)
