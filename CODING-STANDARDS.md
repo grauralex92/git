@@ -9,30 +9,77 @@ E.g.:
 `SignInActivity`, `SignInFragment`, `ImageUploaderService`, `ChangePasswordDialog`.
 
 ### 1.2 Style
-Follow the official Android code style guidelines: [http://source.android.com/source/code-style.html](http://source.android.com/source/code-style.html)
+The coding standards of the SmartCredentials library are inspired from the official Android code style guidelines: [http://source.android.com/source/code-style.html](http://source.android.com/source/code-style.html).
 
-### 1.3 Indentation
-Use tab per indentation level and no whitespaces.
-
-### 1.4 Line Length
+### 1.3 Line Length
 Stick within the 120 char line limit. Use line breaks to split up code according to the style guidelines.
 
-### 1.5 Whitespace
-Code should not have any trailing whitespace to avoid creating unnecessary diff issues. Please setup your IDE to remove these as a save action.
+### 1.4 Whitespace
+Code should not have any trailing whitespace to avoid creating unnecessary diff issues.
+
+### 1.5 Attributes definition and naming
+Attributes should be defined at the __top of the file__ and they should follow the naming rules listed below.
+
+* Private, non-static field names start with __m__.
+* Private, static field names start with __s__.
+* Other fields start with a lower case letter.
+* Static final fields (constants) are ALL_CAPS_WITH_UNDERSCORES.
+
+E.g.: 
+```java
+public class MyClass {
+	public static final int SOME_CONSTANT = 10;
+    public int publicField;
+    private static MyClass sSingleton;
+    int mPackagePrivate;
+    private int mPrivate;
+    protected int mProtected;
+}
+```
+
+### 1.5 Handling exceptions
+
+#### 1.5.1 Don't ignore exceptions
+You must never do the following:
+ 
+```java
+void setServerPort(String value) {
+	try {
+		serverPort = Integer.parseInt(value);
+	} catch (NumberFormatException e) { 
+		// ignored
+	}
+}
+```
+
+#### 1.5.2 Don't catch generic exceptions:
+You should not do the following:
+
+```java
+try {
+	someComplicatedIOFunction();        // may throw IOException
+	someComplicatedParsingFunction();   // may throw ParsingException
+	someComplicatedSecurityFunction();  // may throw SecurityException
+} catch (Exception e) {                 // I'll just catch all exceptions
+	handleError();                      // with one generic handler!
+}
+```
 
 ### 1.6 Imports
+
 #### 1.6.1 Unused imports
-Please setup your IDE to remove all unused imports as a save action.
+Remove any unused imports.
 
 #### 1.6.2 Fully qualify imports
-This is bad: `import foo.*;`
 
-This is good: `import foo.Bar;`
+__Do:__ `import foo.Bar;`
+
+__Don't:__ `import foo.*;`
 
 ## 2. XML
 
 #### 2.1 File naming
-Resources file names are written in __lowercase_underscore__. Unlike the rest of resources, style names are written in __UpperCamelCase__.
+Resources file names are written in __lowercase_underscore__.
 
 The Android build tools merge resources from a library module with those of a dependent app module.
 
@@ -109,19 +156,22 @@ IDs should be prefixed with the libray prefix and then the name of the element i
 
 Image view example:
 
-	<ImageView
-		android:id="@+id/sc_image_profile"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
+```xml
+<ImageView
+	android:id="@+id/sc_image_profile"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" />
+```
 
 Menu example:
 
-	<menu>
-		<item
-			android:id="@+id/sc_menu_done"
-			android:title="Done" />
-	</menu>
-
+```xml
+<menu>
+	<item
+		android:id="@+id/sc_menu_done"
+		android:title="Done" />
+</menu>
+```
 ##### 2.2.2 Strings
 
 String names start with the library prefix and a word that identifies the section they belong to. For example `sc_registration_email_hint` or `sc_registration_name_hint`. If a string __doesn't belong__ to any section, then you should follow the rules below:
@@ -132,30 +182,30 @@ String names start with the library prefix and a word that identifies the sectio
 | `sc_msg_`               | A regular information message          |
 | `sc_title_`             | A title, i.e. a dialog title           |
 | `sc_action_`            | An action such as "Save" or "Create"   |
-	
+
+##### 2.2.3 Styles and Themes
+
+Unlike the rest of resources, style names are written in __UpperCamelCase__.
+
 #### 2.3 Use self-closing tags
 When an XML element doesn't have any content, you __must__ use self closing tags.
 
-Do:
+__Do:__
+```xml
+<TextView
+	android:id="@+id/text_view_profile"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" />
+```
 
-	<TextView
-		android:id="@+id/text_view_profile"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
-
-
-Don't:
-
-	<TextView
-		android:id="@+id/text_view_profile"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" >
-	</TextView>
-
-#### 2.3 Indentation
-Use tab per indentation level and no whitespaces.  
-Each attribute should appear on its own line.  
-Add a space between the closing slash and the final attribute. E.g. ```android:textSize="10dp" />```
+__Don't:__
+```xml
+<TextView
+	android:id="@+id/text_view_profile"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" >
+</TextView>
+```
 
 #### 2.4 Structure
 As a general rule you should try to group similar attributes together. A good way of ordering the most common attributes is:
@@ -165,10 +215,6 @@ As a general rule you should try to group similar attributes together. A good wa
 3. Layout width and layout height
 4. Other layout attributes, sorted alphabetically
 5. Remaining attributes, sorted alphabetically
-
-#### 2.5 IDE Auto format
-
-Automatic formatting rules for our coding standards are stored in an Android Studio file inside the root of this repository. Please use File > Import Settings and select "android_studio_settings.jar" to ensure you get the same rules.
 
 ## Documentation
 
