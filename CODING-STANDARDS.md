@@ -44,11 +44,11 @@ You must never do the following:
  
 ```java
 void setServerPort(String value) {
-	try {
-		serverPort = Integer.parseInt(value);
-	} catch (NumberFormatException e) { 
-		// ignored
-	}
+    try {
+        serverPort = Integer.parseInt(value);
+    } catch (NumberFormatException e) { 
+        // ignored
+    }
 }
 ```
 
@@ -198,18 +198,18 @@ Image view example:
 
 ```xml
 <ImageView
-	android:id="@+id/sc_image_profile"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content" />
+    android:id="@+id/sc_image_profile"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
 ```
 
 Menu example:
 
 ```xml
 <menu>
-	<item
-		android:id="@+id/sc_menu_done"
-		android:title="Done" />
+    <item
+        android:id="@+id/sc_menu_done"
+        android:title="Done" />
 </menu>
 ```
 ##### 2.2.2 Strings
@@ -233,17 +233,17 @@ When an XML element doesn't have any content, you __must__ use self closing tags
 __Do:__
 ```xml
 <TextView
-	android:id="@+id/text_view_profile"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content" />
+    android:id="@+id/text_view_profile"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
 ```
 
 __Don't:__
 ```xml
 <TextView
-	android:id="@+id/text_view_profile"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content" >
+    android:id="@+id/text_view_profile"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 </TextView>
 ```
 
