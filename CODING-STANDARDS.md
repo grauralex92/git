@@ -149,7 +149,7 @@ __Do:__ `import foo.Bar;`
 
 __Don't:__ `import foo.*;`
 
-#### 1.9.3
+#### 1.9.3 Import ordering
 If you are using an IDE such as Android Studio, you don't have to worry about this because your IDE is already obeying these rules. If not, have a look below.
 
 The ordering of import statements is:
@@ -343,7 +343,7 @@ When an XML element doesn't have any content, you __must__ use self closing tags
 __Do:__
 ```xml
 <TextView
-    android:id="@+id/text_view_profile"
+    android:id="@+id/sc_text_view_profile"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 ```
@@ -351,7 +351,7 @@ __Do:__
 __Don't:__
 ```xml
 <TextView
-    android:id="@+id/text_view_profile"
+    android:id="@+id/sc_text_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 </TextView>
@@ -369,9 +369,62 @@ As a general rule you should try to group similar attributes together. A good wa
 ## Documentation
 
 #### Javadoc
-Any new classes that are committed must include a class descriptor Javadoc along with:
-```@author name@address.com```
-Javadoc any public methods, variables and constants. Javadoc private methods where beneficial.
+Every file should have a copyright statement at the top, followed by package and import statements (each block separated by a blank line) and finally the class or interface declaration. In the Javadoc comments, describe what the class or interface does.
+
+```java
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package de.telekom.smartcredentials;
+
+import android.os.Foo;
+import android.view.Bar;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Does X and Y and provides an abstraction for Z.
+ */
+
+public class Foo {
+    ...
+}
+```
+
+Every class and nontrivial public method you write must contain a Javadoc comment with at least one sentence describing what the class or method does. This sentence should start with a third person descriptive verb.
+```java
+/** Returns the correctly rounded positive square root of a double value. */
+
+static double sqrt(double a) {
+    ...
+}
+```
+
+or 
+
+```
+/**
+ * Constructs a new String by converting the specified array of
+ * bytes using the platform's default character encoding.
+ */
+public String(byte[] bytes) {
+    ...
+}
+```
 
 #### Comments
 Use in-line commenting to help the next developer who might be editing your code, even if it seems obvious now. Inline comments should appear on the line above the code your are commenting.
