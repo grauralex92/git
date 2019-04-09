@@ -105,6 +105,39 @@ if (condition)
     body();
 ```
 
+### 1.8 Annotations
+
+#### 1.8.1 Annotations practices
+
+According to the Android code style guide, the standard practices for some of the predefined annotations in Java are:
+
+* `@Override`: The @Override annotation __must be used__ whenever a method overrides the declaration or implementation from a super-class. For example, if you use the @inheritdocs Javadoc tag, and derive from a class (not an interface), you must also annotate that the method @Overrides the parent class's method.
+
+* `@SuppressWarnings`: The @SuppressWarnings annotation should only be used under circumstances where it is impossible to eliminate a warning. If a warning passes this "impossible to eliminate" test, the @SuppressWarnings annotation must be used, so as to ensure that all warnings reflect actual problems in the code.
+
+#### 1.8.2 Annotations style
+
+__Classes, Methods and Constructors__
+
+When annotations are applied to a class, method, or constructor, they are listed after the documentation block and should appear as __one annotation per line__ .
+
+```java
+/* This is the documentation block about the class */
+@AnnotationA
+@AnnotationB
+public class MyAnnotatedClass { 
+
+}
+```
+
+__Fields__
+
+Annotations applying to fields should be listed __on the same line__, unless the line reaches the maximum line length.
+
+```java
+@Nullable @Mock DataManager mDataManager;
+```
+
 ### 1.6 Imports
 
 #### 1.6.1 Unused imports
@@ -115,6 +148,21 @@ Remove any unused imports.
 __Do:__ `import foo.Bar;`
 
 __Don't:__ `import foo.*;`
+
+#### 1.6.3
+If you are using an IDE such as Android Studio, you don't have to worry about this because your IDE is already obeying these rules. If not, have a look below.
+
+The ordering of import statements is:
+
+1. Android imports
+2. Imports from third parties (com, junit, net, org)
+3. java and javax
+4. Same project imports
+
+To exactly match the IDE settings, the imports should be:
+
+* Alphabetically ordered within each grouping, with capital letters before lower case letters.
+* There should be a blank line between each major grouping.
 
 ## 2. XML
 
