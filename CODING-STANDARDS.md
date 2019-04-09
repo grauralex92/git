@@ -28,7 +28,7 @@ Attributes should be defined at the __top of the file__ and they should follow t
 E.g.: 
 ```java
 public class MyClass {
-	public static final int SOME_CONSTANT = 10;
+    public static final int SOME_CONSTANT = 10;
     public int publicField;
     private static MyClass sSingleton;
     int mPackagePrivate;
@@ -63,6 +63,46 @@ try {
 } catch (Exception e) {                 // I'll just catch all exceptions
 	handleError();                      // with one generic handler!
 }
+```
+
+### 1.6 Treat acronyms as words
+
+| __Do__           | __Don't__        |
+| ---------------- | ---------------- |
+| `XmlHttpRequest` | `XMLHTTPRequest` |
+| `getCustomerId`  | `getCustomerID`  |
+| `String url`     | `String URL`     |
+| `long id`        | `long ID`        |
+
+### 1.7 Use standard brace style
+
+Braces go on the same line as the code before them.
+
+```java
+class MyClass {
+    int func() {
+        if (something) {
+            // ...
+        } else if (somethingElse) {
+            // ...
+        } else {
+            // ...
+        }
+    }
+}
+```
+
+Braces around the statements are required unless the condition and the body fit on one line. If the condition and the body fit on one line and that line is shorter than the max line length, then braces are not required.
+
+__Do:__
+```java
+if (condition) body();
+```
+
+__Don't:__
+```java
+if (condition)
+    body();
 ```
 
 ### 1.6 Imports
