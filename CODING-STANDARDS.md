@@ -126,7 +126,7 @@ When annotations are applied to a class, method, or constructor, they are listed
 @AnnotationA
 @AnnotationB
 public class MyAnnotatedClass { 
-
+   ...
 }
 ```
 
@@ -138,18 +138,18 @@ Annotations applying to fields should be listed __on the same line__, unless the
 @Nullable @Mock DataManager mDataManager;
 ```
 
-### 1.6 Imports
+### 1.9 Imports
 
-#### 1.6.1 Unused imports
+#### 1.9.1 Unused imports
 Remove any unused imports.
 
-#### 1.6.2 Fully qualify imports
+#### 1.9.2 Fully qualify imports
 
 __Do:__ `import foo.Bar;`
 
 __Don't:__ `import foo.*;`
 
-#### 1.6.3
+#### 1.9.3
 If you are using an IDE such as Android Studio, you don't have to worry about this because your IDE is already obeying these rules. If not, have a look below.
 
 The ordering of import statements is:
@@ -163,6 +163,68 @@ To exactly match the IDE settings, the imports should be:
 
 * Alphabetically ordered within each grouping, with capital letters before lower case letters.
 * There should be a blank line between each major grouping.
+
+### 1.10 Class member ordering
+
+There is no single correct solution for this but using a __logical__ and __consistent__ order will improve code learnability and readability. It is recommendable to use the following order:
+
+1. Constants
+2. Fields
+3. Constructors
+4. Override methods and callbacks (public or private)
+5. Public methods
+6. Private methods
+7. Inner classes or interfaces
+
+Example:
+
+```java
+public class MainActivity extends Activity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private String mTitle;
+    private TextView mTextViewTitle;
+
+    @Override
+    public void onCreate() {
+        ...
+    }
+
+    public void setTitle(String title) {
+    	mTitle = title;
+    }
+
+    private void setUpView() {
+        ...
+    }
+
+    static class AnInnerClass {
+
+    }
+
+}
+```
+
+If your class is extending an __Android component__ such as an Activity or a Fragment, it is a good practice to order the override methods so that they __match the component's lifecycle__. For example, if you have an Activity that implements `onCreate()`, `onDestroy()`, `onPause()` and `onResume()`, then the correct order is:
+
+```java
+public class MainActivity extends Activity {
+
+    @Override
+    public void onCreate() {}
+
+    @Override
+    public void onResume() {}
+
+    @Override
+    public void onPause() {}
+
+    @Override
+    public void onDestroy() {}
+
+}
+```
 
 ## 2. XML
 
