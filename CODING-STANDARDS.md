@@ -49,7 +49,7 @@ try {
 }
 ```
 
-See alternatives to ignoring exceptions [here](https://source.android.com/setup/contribute/code-style#dont-catch-generic-exception).
+See the reason why and some alternatives [here](https://source.android.com/setup/contribute/code-style#dont-catch-generic-exception).
 
 ### 1.6 Imports
 
@@ -241,14 +241,14 @@ Use TODO comments for code that is temporary, a short-term solution, or good-eno
 
 ## 2. XML
 
-#### 2.1 File naming
+### 2.1 File naming
 Resources file names are written in __lowercase_underscore__.
 
 The Android build tools merge resources from a library module with those of a dependent app module.
 
 To avoid resource conflicts for common resource IDs, use the following naming scheme, applying the `sc` prefix to resource namings:
 
-##### 2.1.1 Drawable files
+#### 2.1.1 Drawable files
 
 Naming conventions for drawables:
 
@@ -284,7 +284,7 @@ Naming conventions for selector states:
 | Disabled     | `_disabled`     | `sc_btn_order_disabled.9.png`  |
 | Selected     | `_selected`     | `sc_btn_order_selected.9.png`  |
 
-##### 2.1.2 Layout files
+#### 2.1.2 Layout files
 
 Layout files should match the name of the Android components that they are intended for, but moving the top level component name to the beginning, after the library prefix. For example, if we are creating a layout for the `SignInActivity`, the name of the layout file should be `sc_activity_sign_in.xml`.
 
@@ -296,17 +296,17 @@ Layout files should match the name of the Android components that they are inten
 | AdapterView item | ---                    | `sc_item_person.xml`             |
 | Partial layout   | ---                    | `sc_partial_stats_bar.xml`       |
 
-##### 2.1.3 Menu files
+#### 2.1.3 Menu files
 
 Similar to layout files, menu files should match the name of the component. For example, if we are defining a menu file that is going to be used in the `UserActivity`, then the name of the file should be `sc_activity_user.xml`
 
 A good practice is to not include the word `menu` as part of the name because these files are already located in the `menu` directory.
 
-#### 2.2 Resources naming
+### 2.2 Resources naming
 
 Resource IDs and names are written in __lowercase_underscore__.
 
-##### 2.2.1 ID naming
+#### 2.2.1 ID naming
 
 IDs should be prefixed with the libray prefix and then the name of the element in lowercase underscore. For example:
 
@@ -335,7 +335,7 @@ Menu example:
         android:title="Done" />
 </menu>
 ```
-##### 2.2.2 Strings
+#### 2.2.2 Strings
 
 String names start with the library prefix and a word that identifies the section they belong to. For example `sc_registration_email_hint` or `sc_registration_name_hint`. If a string __doesn't belong__ to any section, then you should follow the rules below:
 
@@ -346,11 +346,11 @@ String names start with the library prefix and a word that identifies the sectio
 | `sc_title_`             | A title, i.e. a dialog title           |
 | `sc_action_`            | An action such as "Save" or "Create"   |
 
-##### 2.2.3 Styles and Themes
+#### 2.2.3 Styles and Themes
 
 Unlike the rest of resources, style names are written in __UpperCamelCase__.
 
-#### 2.3 Use self-closing tags
+### 2.3 Use self-closing tags
 When an XML element doesn't have any content, you __must__ use self closing tags.
 
 __Do:__
@@ -370,7 +370,7 @@ __Don't:__
 </TextView>
 ```
 
-#### 2.4 Structure
+### 2.4 Structure
 As a general rule you should try to group similar attributes together. A good way of ordering the most common attributes is:
 
 1. View Id
@@ -379,9 +379,9 @@ As a general rule you should try to group similar attributes together. A good wa
 4. Other layout attributes, sorted alphabetically
 5. Remaining attributes, sorted alphabetically
 
-## Documentation
+## 3. Documentation
 
-#### Javadoc
+### 3.1 Javadoc
 Every file should have a copyright statement at the top, followed by package and import statements (each block separated by a blank line) and finally the class or interface declaration. In the Javadoc comments, describe what the class or interface does.
 
 //TODO: replace with real SmartCredentials license
@@ -439,9 +439,9 @@ public String(byte[] bytes) {
 }
 ```
 
-#### Comments
+### 3.2 Comments
 Use in-line commenting to help the next developer who might be editing your code, even if it seems obvious now. Inline comments should appear on the line above the code your are commenting.
 Comment XML View elements using ```<!-- Comment -->```.
 
-### Version control
+## 4. Version control
 No commented out code must be committed unless you have a very good reason that is clearly described in a comment by the code you are ommitting.
