@@ -12,12 +12,72 @@ E.g.:
 The coding standards of the SmartCredentials library are inspired from the official Android code style guidelines: [http://source.android.com/source/code-style.html](http://source.android.com/source/code-style.html).
 
 ### 1.3 Line Length
-Stick within the 120 char line limit. Use line breaks to split up code according to the style guidelines.
+Stick within the 100 char line limit. Use line breaks to split up code according to the style guidelines.
 
 ### 1.4 Whitespace
 Code should not have any trailing whitespace to avoid creating unnecessary diff issues.
 
-### 1.5 Attributes definition and naming
+### 1.5 Handling exceptions
+
+#### 1.5.1 Don't ignore exceptions
+You must never do the following:
+ 
+```java
+void setServerPort(String value) {
+    try {
+        serverPort = Integer.parseInt(value);
+    } catch (NumberFormatException e) { 
+        // ignored
+    }
+}
+```
+
+_Anytime somebody has an empty catch clause they should have a creepy feeling. There are definitely times when it is actually the correct thing to do, but at least you have to think about it. In Java you can't escape the creepy feeling._ - James Gosling
+
+See alternatives to ignoring exceptions [here](https://source.android.com/setup/contribute/code-style#dont-ignore-exceptions).
+
+#### 1.5.2 Don't catch generic exceptions:
+You should not do the following:
+
+```java
+try {
+	someComplicatedIOFunction();        // may throw IOException
+	someComplicatedParsingFunction();   // may throw ParsingException
+	someComplicatedSecurityFunction();  // may throw SecurityException
+} catch (Exception e) {                 // I'll just catch all exceptions
+	handleError();                      // with one generic handler!
+}
+```
+
+See alternatives to ignoring exceptions [here](https://source.android.com/setup/contribute/code-style#dont-catch-generic-exception).
+
+### 1.6 Imports
+
+#### 1.6.1 Unused imports
+Remove any unused imports.
+
+#### 1.6.2 Fully qualify imports
+
+__Do:__ `import foo.Bar;`
+
+__Don't:__ `import foo.*;`
+
+#### 1.6.3 Import ordering
+If you are using an IDE such as Android Studio, you don't have to worry about this because your IDE is already obeying these rules. If not, have a look below.
+
+The ordering of import statements is:
+
+1. Android imports
+2. Imports from third parties (com, junit, net, org)
+3. java and javax
+4. Same project imports
+
+To exactly match the IDE settings, the imports should be:
+
+* Alphabetically ordered within each grouping, with capital letters before lower case letters.
+* There should be a blank line between each major grouping.
+
+### 1.7 Attributes definition and naming
 Attributes should be defined at the __top of the file__ and they should follow the naming rules listed below.
 
 * Private, non-static field names start with __m__.
@@ -37,44 +97,7 @@ public class MyClass {
 }
 ```
 
-### 1.5 Handling exceptions
-
-#### 1.5.1 Don't ignore exceptions
-You must never do the following:
- 
-```java
-void setServerPort(String value) {
-    try {
-        serverPort = Integer.parseInt(value);
-    } catch (NumberFormatException e) { 
-        // ignored
-    }
-}
-```
-
-#### 1.5.2 Don't catch generic exceptions:
-You should not do the following:
-
-```java
-try {
-	someComplicatedIOFunction();        // may throw IOException
-	someComplicatedParsingFunction();   // may throw ParsingException
-	someComplicatedSecurityFunction();  // may throw SecurityException
-} catch (Exception e) {                 // I'll just catch all exceptions
-	handleError();                      // with one generic handler!
-}
-```
-
-### 1.6 Treat acronyms as words
-
-| __Do__           | __Don't__        |
-| ---------------- | ---------------- |
-| `XmlHttpRequest` | `XMLHTTPRequest` |
-| `getCustomerId`  | `getCustomerID`  |
-| `String url`     | `String URL`     |
-| `long id`        | `long ID`        |
-
-### 1.7 Use standard brace style
+### 1.8 Use standard brace style
 
 Braces go on the same line as the code before them.
 
@@ -105,9 +128,9 @@ if (condition)
     body();
 ```
 
-### 1.8 Annotations
+### 1.9 Annotations
 
-#### 1.8.1 Annotations practices
+#### 1.9.1 Annotations practices
 
 According to the Android code style guide, the standard practices for some of the predefined annotations in Java are:
 
@@ -115,7 +138,7 @@ According to the Android code style guide, the standard practices for some of th
 
 * `@SuppressWarnings`: The @SuppressWarnings annotation should only be used under circumstances where it is impossible to eliminate a warning. If a warning passes this "impossible to eliminate" test, the @SuppressWarnings annotation must be used, so as to ensure that all warnings reflect actual problems in the code.
 
-#### 1.8.2 Annotations style
+#### 1.9.2 Annotations style
 
 __Classes, Methods and Constructors__
 
@@ -138,33 +161,16 @@ Annotations applying to fields should be listed __on the same line__, unless the
 @Nullable @Mock DataManager mDataManager;
 ```
 
-### 1.9 Imports
+### 1.10 Treat acronyms as words
 
-#### 1.9.1 Unused imports
-Remove any unused imports.
+| __Do__           | __Don't__        |
+| ---------------- | ---------------- |
+| `XmlHttpRequest` | `XMLHTTPRequest` |
+| `getCustomerId`  | `getCustomerID`  |
+| `String url`     | `String URL`     |
+| `long id`        | `long ID`        |
 
-#### 1.9.2 Fully qualify imports
-
-__Do:__ `import foo.Bar;`
-
-__Don't:__ `import foo.*;`
-
-#### 1.9.3 Import ordering
-If you are using an IDE such as Android Studio, you don't have to worry about this because your IDE is already obeying these rules. If not, have a look below.
-
-The ordering of import statements is:
-
-1. Android imports
-2. Imports from third parties (com, junit, net, org)
-3. java and javax
-4. Same project imports
-
-To exactly match the IDE settings, the imports should be:
-
-* Alphabetically ordered within each grouping, with capital letters before lower case letters.
-* There should be a blank line between each major grouping.
-
-### 1.10 Class member ordering
+### 1.11 Class member ordering
 
 There is no single correct solution for this but using a __logical__ and __consistent__ order will improve code learnability and readability. It is recommendable to use the following order:
 
@@ -224,6 +230,13 @@ public class MainActivity extends Activity {
     public void onDestroy() {}
 
 }
+```
+
+### 1.12 Use TODO comments
+Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect. TODOs should include the string TODO in all caps, followed by a colon:
+
+```java
+// TODO: Change this to use a flag instead of a constant.
 ```
 
 ## 2. XML
@@ -371,6 +384,7 @@ As a general rule you should try to group similar attributes together. A good wa
 #### Javadoc
 Every file should have a copyright statement at the top, followed by package and import statements (each block separated by a blank line) and finally the class or interface declaration. In the Javadoc comments, describe what the class or interface does.
 
+//TODO: replace with real SmartCredentials license
 ```java
 /*
  * Copyright 2018 The Android Open Source Project
